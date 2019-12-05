@@ -21,24 +21,21 @@ const App = () => {
       if(res == RESULTS.GRANTED){
       CameraRoll.saveToCameraRoll(img_url).then(local_img_url => {
         console.log("success",local_img_url ) 
-        /* here you display a message for the user 
-        something like "Image saved successfully" */
       })
     }
     }
     else {
       let res = await request(PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE)
       if(res == RESULTS.GRANTED){
-        downloadImage(img_url)
+        downloadAndSaveImageAndroid(img_url)
       }
       
     }
     
   }
 
-  const downloadImage = (image_URL) => {
+  const downloadAndSaveImageAndroid = (image_URL) => {
     var date = new Date();
-
     var ext = this.getExtention(image_URL);
     ext = "." + ext[0];
     const { config, fs } = RNFetchBlob;
